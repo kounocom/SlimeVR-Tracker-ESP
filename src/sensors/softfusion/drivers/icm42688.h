@@ -62,6 +62,8 @@ struct ICM42688
         };
         static constexpr uint8_t TempData = 0x1d;
 
+        static constexpr uint8_t BankSel = 0x76;
+
         struct DeviceConfig {
             static constexpr uint8_t reg = 0x11;
             static constexpr uint8_t valueSwReset = 1;
@@ -69,6 +71,10 @@ struct ICM42688
         struct IntfConfig0 {
             static constexpr uint8_t reg = 0x4c;
             static constexpr uint8_t value = (0 << 4) | (0 << 5) | (0 << 6); //fifo count in LE, sensor data in LE, fifo size in bytes
+        };
+        struct IntfConfig5 {
+            static constexpr uint8_t reg = 0x7b;
+            static constexpr uint8_t value = (0b10 << 1); // PIN9_FUNCTION = CLKIN
         };
         struct FifoConfig0 {
             static constexpr uint8_t reg = 0x16;
@@ -123,6 +129,9 @@ struct ICM42688
         delay(20);
 
         i2c.writeReg(Regs::IntfConfig0::reg, Regs::IntfConfig0::value);
+        i2c.writeReg(Regs::BankSel, 1);
+        i2c.writeReg(Regs::IntfConfig5::reg, Regs::IntfConfig5::value);
+        i2c.writeReg(Regs::BankSel, 0);
         i2c.writeReg(Regs::GyroConfig::reg, Regs::GyroConfig::value);
         i2c.writeReg(Regs::AccelConfig::reg, Regs::AccelConfig::value);
         i2c.writeReg(Regs::FifoConfig0::reg, Regs::FifoConfig0::value);
