@@ -176,6 +176,7 @@ class BMI160Sensor : public Sensor {
 
         bool getTemperature(float* out);
 
+        void deinitialize() override final;
     private:
         BMI160 imu {};
         int axisRemap;
