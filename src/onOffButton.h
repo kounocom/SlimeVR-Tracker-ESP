@@ -8,6 +8,10 @@
 #define ON_OFF_BUTTON_ACTIVE_LEVEL LOW
 #endif
 
+#ifndef ON_OFF_BUTTON_HOLD_TIME_MS
+#define ON_OFF_BUTTON_HOLD_TIME_MS 1000
+#endif
+
 namespace SlimeVR {
 
 class OnOffButton {
