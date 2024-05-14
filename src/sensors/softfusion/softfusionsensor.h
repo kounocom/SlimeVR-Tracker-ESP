@@ -74,7 +74,7 @@ class SoftFusionSensor : public Sensor
     void sendTempIfNeeded()
     {
         uint32_t now = micros();
-        constexpr float maxSendRateHz = 2.0f;
+        constexpr float maxSendRateHz = 0.5f;
         constexpr uint32_t sendInterval = 1.0f/maxSendRateHz * 1e6;
         uint32_t elapsed = now - m_lastTemperaturePacketSent;
         if (elapsed >= sendInterval) {
