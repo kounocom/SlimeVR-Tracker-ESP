@@ -45,12 +45,12 @@ struct BMI270
     static constexpr auto Type = ImuID::BMI270;
 
     static constexpr float GyrTs=1.0/400.0;
-    static constexpr float AccTs=1.0/100.0;
+    static constexpr float AccTs=1.0/400.0;
 
     static constexpr float MagTs=1.0/100;
 
     static constexpr float GyroSensitivity = 32.768f;
-    static constexpr float AccelSensitivity = 2048.0f;
+    static constexpr float AccelSensitivity = 8192.0f;
 
     struct MotionlessCalibrationData
     {
@@ -162,7 +162,7 @@ struct BMI270
 
             static constexpr uint8_t filterHighPerfMode = 1 << 7;
 
-            static constexpr uint8_t value = rate100Hz | DLPFModeAvg4 | filterHighPerfMode;
+            static constexpr uint8_t value = rate400Hz | DLPFModeAvg4 | filterHighPerfMode;
         };
 
         struct AccRange {
@@ -173,7 +173,7 @@ struct BMI270
             static constexpr uint8_t range8G = 2;
             static constexpr uint8_t range16G = 3;
 
-            static constexpr uint8_t value = range16G;
+            static constexpr uint8_t value = range4G;
         };
 
         struct FifoConfig0 {
