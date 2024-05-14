@@ -31,8 +31,8 @@ VQFParams::VQFParams()
     , biasForgettingTime(100.0)
     , biasClip(2.0)
 #ifndef VQF_NO_MOTION_BIAS_ESTIMATION
-    , biasSigmaMotion(0.1175)
-    , biasVerticalForgettingFactor(0)
+    , biasSigmaMotion(0.1)
+    , biasVerticalForgettingFactor(0.0001)
 #endif
     , biasSigmaRest(0.03)
     , restMinT(1.5)
