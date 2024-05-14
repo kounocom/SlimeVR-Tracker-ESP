@@ -277,7 +277,7 @@ public:
                 m_sensor.motionlessCalibration(calibData);
                 std::memcpy(m_calibration.MotionlessData, &calibData, sizeof(calibData));
             }
-            calibrateAccel();
+            // calibrateAccel();
         }
         else if (calibrationType == 1)
         {
