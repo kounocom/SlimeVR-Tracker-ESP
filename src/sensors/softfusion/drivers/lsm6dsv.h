@@ -44,7 +44,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
     static constexpr auto Type = ImuID::LSM6DSV;
 
     static constexpr float GyrFreq = 480;
-    static constexpr float AccFreq = 120;
+    static constexpr float AccFreq = 480;
     static constexpr float MagFreq = 120;
 
     static constexpr float GyrTs=1.0/GyrFreq;
@@ -52,7 +52,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
     static constexpr float MagTs=1.0/MagFreq;
 
     static constexpr float GyroSensitivity = 1000 / 35.0f;
-    static constexpr float AccelSensitivity = 1000 / 0.244f;
+    static constexpr float AccelSensitivity = 1000 / 0.122f;
 
     using LSM6DSOutputHandler<I2CImpl>::i2c;
 
@@ -68,7 +68,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
         };
         struct Ctrl1XLODR {
             static constexpr uint8_t reg = 0x10;
-            static constexpr uint8_t value = (0b0010110); //120Hz, HAODR
+            static constexpr uint8_t value = (0b0011000); //120Hz, HAODR
         };
         struct Ctrl2GODR {
             static constexpr uint8_t reg = 0x11;
@@ -85,7 +85,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
         };
         struct Ctrl8XLFS {
             static constexpr uint8_t reg = 0x17;
-            static constexpr uint8_t value = (0b10); //8g
+            static constexpr uint8_t value = (0b01); //4g
         };
         struct FifoCtrl3BDR {
             static constexpr uint8_t reg = 0x09;
