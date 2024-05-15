@@ -48,10 +48,10 @@ namespace SlimeVR
                 biasSigmaMotion = 0.1175f;
                 biasVerticalForgettingFactor = 0;
                 #endif
-                tauAcc = 2.0f;
+                tauAcc = 3.0f;
                 restMinT = 2.0f;
                 restThGyr = 0.5f; // 400 norm
-                restThAcc = 0.125f; // 100 norm
+                restThAcc = 0.25f; // 100 norm
             }
         };
         #endif
