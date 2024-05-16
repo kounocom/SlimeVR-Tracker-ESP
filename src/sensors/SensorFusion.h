@@ -4,7 +4,7 @@
 #include "globals.h"
 #include "sensor.h"
 
-#define SENSOR_DOUBLE_PRECISION 1
+#define SENSOR_DOUBLE_PRECISION 0
 
 #define SENSOR_FUSION_TYPE SENSOR_FUSION_VQF
 
