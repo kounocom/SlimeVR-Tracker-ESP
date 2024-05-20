@@ -79,6 +79,7 @@ namespace SlimeVR {
             } else {
                 m_Logger.info("No configuration file found, creating new one");
                 m_Config.version = CURRENT_CONFIGURATION_VERSION;
+                m_Config.use_6_axis = USE_6_AXIS;
                 save();
             }
 
@@ -123,7 +124,8 @@ namespace SlimeVR {
             LittleFS.format();
 
             m_Calibrations.clear();
-            m_Config.version = 1;
+            m_Config.version = CURRENT_CONFIGURATION_VERSION;
+            m_Config.use_6_axis = USE_6_AXIS;
             save();
 
             m_Logger.debug("Reset configuration");
@@ -131,6 +133,15 @@ namespace SlimeVR {
 
         int32_t Configuration::getVersion() const {
             return m_Config.version;
+        }
+
+        bool Configuration::getUse6Axis() const {
+            return m_Config.use_6_axis;
+        }
+
+        void Configuration::setUse6Axis(bool use6Axis) {
+            m_Config.use_6_axis = use6Axis;
+            save();
         }
 
         size_t Configuration::getCalibrationCount() const {
@@ -243,12 +254,14 @@ namespace SlimeVR {
         }
 
         bool Configuration::runMigrations(int32_t version) {
+            reset();
             return true;
         }
 
         void Configuration::print() {
             m_Logger.info("Configuration:");
             m_Logger.info("  Version: %d", m_Config.version);
+            m_Logger.info("  Use 6-axis: %s", m_Config.use_6_axis ? "true" : "false");
             m_Logger.info("  %d Calibrations:", m_Calibrations.size());
 
             for (size_t i = 0; i < m_Calibrations.size(); i++) {

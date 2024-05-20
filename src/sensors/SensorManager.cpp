@@ -153,6 +153,9 @@ namespace SlimeVR
             activeSCL = PIN_IMU_SCL;
             activeSDA = PIN_IMU_SDA;
 
+            bool use_6_axis = configuration.getUse6Axis();
+            m_Logger.info("Using 6-axis: %s", use_6_axis ? "true" : "false");
+
             uint8_t sensorID = 0;
             uint8_t activeSensorCount = 0;
 #define IMU_DESC_ENTRY(...)                                          \

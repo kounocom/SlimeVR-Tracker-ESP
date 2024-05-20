@@ -114,6 +114,27 @@ namespace SerialCommands {
 					WiFiNetwork::setWiFiCredentials(ssid, ppass);
 					logger.info("CMD SET BWIFI OK: New wifi credentials set, reconnecting");
 				}
+            } else if (parser->equalCmdParam(1, "USE_6_AXIS")) {
+                if(parser->getParamCount() < 2) {
+                    logger.error("CMD SET USE_6_AXIS ERROR: Too few arguments");
+                    logger.info("Syntax: SET USE_6_AXIS <true/false>");
+                } else {
+                    bool use6Axis;
+                    const char* param = parser->getCmdParam(2);
+                    if (param != nullptr) {
+                        if (strcasecmp(param, "true") == 0 || strcmp(param, "1") == 0) {
+                            use6Axis = true;
+                        } else if (strcasecmp(param, "false") == 0 || strcmp(param, "0") == 0) {
+                            use6Axis = false;
+                        } else {
+                            logger.error("CMD SET USE_6_AXIS ERROR: Invalid argument, expected true/false or 1/0");
+                            return;
+                        }
+                    }
+                    configuration.setUse6Axis(use6Axis);
+                    logger.info("USE_6_AXIS is now set to %s", use6Axis ? "true" : "false");
+                    logger.info("Please restart for changes to take effect");
+                }
 			} else {
 				logger.error("CMD SET ERROR: Unrecognized variable to set");
 			}

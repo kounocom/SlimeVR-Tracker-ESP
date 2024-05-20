@@ -25,6 +25,8 @@
 #include "utils.h"
 #include "GlobalVars.h"
 
+bool use6Axis = configuration.getUse6Axis();
+
 void BNO080Sensor::motionSetup()
 {
 #ifdef DEBUG_SENSOR
@@ -53,7 +55,7 @@ void BNO080Sensor::motionSetup()
 
     this->imu.enableLinearAccelerometer(10);
 
-#if USE_6_AXIS
+if(use6Axis) {
     if ((sensorType == IMU_BNO085 || sensorType == IMU_BNO086) && BNO_USE_ARVR_STABILIZATION) {
         imu.enableARVRStabilizedGameRotationVector(10);
     } else {
@@ -63,13 +65,13 @@ void BNO080Sensor::motionSetup()
     #if BNO_USE_MAGNETOMETER_CORRECTION
     imu.enableRotationVector(1000);
     #endif
-#else
+} else {
     if ((sensorType == IMU_BNO085 || sensorType == IMU_BNO086) && BNO_USE_ARVR_STABILIZATION) {
         imu.enableARVRStabilizedRotationVector(10);
     } else {
         imu.enableRotationVector(10);
     }
-#endif
+}
 
 #if ENABLE_INSPECTION
     imu.enableRawGyro(10);
@@ -113,16 +115,16 @@ void BNO080Sensor::motionLoop()
         lastReset = 0;
         lastData = millis();
 
-#if USE_6_AXIS
+if(use6Axis) {
         if (imu.hasNewGameQuat()) // New quaternion if context
         {
             Quat nRotation;
             imu.getGameQuat(nRotation.x, nRotation.y, nRotation.z, nRotation.w, calibrationAccuracy);
 
             setFusedRotation(nRotation);
-            // Leave new quaternion if context open, it's closed later
+        }    // Leave new quaternion if context open, it's closed later
 
-#else // USE_6_AXIS
+} else { // USE_6_AXIS
 
         if (imu.hasNewQuat()) // New quaternion if context
         {
@@ -131,7 +133,8 @@ void BNO080Sensor::motionLoop()
 
             setFusedRotation(nRotation);
             // Leave new quaternion if context open, it's closed later
-#endif // USE_6_AXIS
+        }
+} // USE_6_AXIS
 
             // Continuation of the new quaternion if context, used for both 6 and 9 axis
 #if SEND_ACCELERATION
@@ -142,9 +145,9 @@ void BNO080Sensor::motionLoop()
                 setAcceleration(nAccel);
             }
 #endif // SEND_ACCELERATION
-        } // Closing new quaternion if context
+     // Closing new quaternion if context
 
-#if USE_6_AXIS && BNO_USE_MAGNETOMETER_CORRECTION
+if(use6Axis && BNO_USE_MAGNETOMETER_CORRECTION) {
         if (imu.hasNewMagQuat())
         {
             imu.getMagQuat(magQuaternion.x, magQuaternion.y, magQuaternion.z, magQuaternion.w, magneticAccuracyEstimate, magCalibrationAccuracy);
@@ -158,7 +161,7 @@ void BNO080Sensor::motionLoop()
 
             newMagData = true;
         }
-#endif // USE_6_AXIS && BNO_USE_MAGNETOMETER_CORRECTION
+} // USE_6_AXIS && BNO_USE_MAGNETOMETER_CORRECTION
 
         if (imu.getTapDetected())
         {
@@ -190,8 +193,10 @@ void BNO080Sensor::motionLoop()
         m_Logger.error("Sensor %d doesn't respond. Last reset reason:", sensorId, lastReset);
         m_Logger.error("Last error: %d, seq: %d, src: %d, err: %d, mod: %d, code: %d",
                 lastError.severity, lastError.error_sequence_number, lastError.error_source, lastError.error, lastError.error_module, lastError.error_code);
-    }
+    
 }
+}
+
 
 SensorStatus BNO080Sensor::getSensorState() {
     return lastReset > 0 ? SensorStatus::SENSOR_ERROR : isWorking() ? SensorStatus::SENSOR_OK : SensorStatus::SENSOR_OFFLINE;
@@ -217,18 +222,18 @@ void BNO080Sensor::sendData()
 #endif
     }
 
-#if !USE_6_AXIS
+if(use6Axis) {
         networkConnection.sendMagnetometerAccuracy(sensorId, magneticAccuracyEstimate);
-#endif
+}
 
-#if USE_6_AXIS && BNO_USE_MAGNETOMETER_CORRECTION
+if(use6Axis) {
     if (newMagData)
     {
         newMagData = false;
         networkConnection.sendRotationData(sensorId, &magQuaternion, DATA_TYPE_CORRECTION, magCalibrationAccuracy);
         networkConnection.sendMagnetometerAccuracy(sensorId, magneticAccuracyEstimate);
     }
-#endif
+}
 
     if (tap != 0)
     {

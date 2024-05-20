@@ -42,6 +42,8 @@ namespace SlimeVR {
             void print();
 
             int32_t getVersion() const;
+            bool getUse6Axis() const;
+            void setUse6Axis(bool use6Axis);
 
             size_t getCalibrationCount() const;
             CalibrationConfig getCalibration(size_t sensorID) const;

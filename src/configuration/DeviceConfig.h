@@ -30,6 +30,7 @@ namespace SlimeVR {
     namespace Configuration {
         struct DeviceConfig {
             int32_t version;
+            bool use_6_axis;
         };
     }
 }
