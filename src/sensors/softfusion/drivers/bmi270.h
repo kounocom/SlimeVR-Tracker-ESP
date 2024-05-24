@@ -45,7 +45,7 @@ struct BMI270
     static constexpr auto Type = ImuID::BMI270;
 
     static constexpr float GyrTs=1.0/400.0;
-    static constexpr float AccTs=1.0/400.0;
+    static constexpr float AccTs=1.0/100.0;
 
     static constexpr float MagTs=1.0/100;
 
@@ -162,7 +162,7 @@ struct BMI270
 
             static constexpr uint8_t filterHighPerfMode = 1 << 7;
 
-            static constexpr uint8_t value = rate400Hz | DLPFModeAvg4 | filterHighPerfMode;
+            static constexpr uint8_t value = rate100Hz | DLPFModeAvg4 | filterHighPerfMode;
         };
 
         struct AccRange {

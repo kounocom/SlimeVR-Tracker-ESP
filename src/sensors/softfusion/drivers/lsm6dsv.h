@@ -44,7 +44,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
     static constexpr auto Type = ImuID::LSM6DSV;
 
     static constexpr float GyrFreq = 480;
-    static constexpr float AccFreq = 480;
+    static constexpr float AccFreq = 120;
     static constexpr float MagFreq = 120;
 
     static constexpr float GyrTs=1.0/GyrFreq;
@@ -68,7 +68,7 @@ struct LSM6DSV : LSM6DSOutputHandler<I2CImpl>
         };
         struct Ctrl1XLODR {
             static constexpr uint8_t reg = 0x10;
-            static constexpr uint8_t value = (0b0011000); //480Hz, HAODR
+            static constexpr uint8_t value = (0b0010110); //120Hz, HAODR
         };
         struct Ctrl2GODR {
             static constexpr uint8_t reg = 0x11;

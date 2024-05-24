@@ -43,7 +43,7 @@ struct ICM42688
     static constexpr auto Type = ImuID::ICM42688;
 
     static constexpr float GyrTs=1.0/500.0;
-    static constexpr float AccTs=1.0/500.0;
+    static constexpr float AccTs=1.0/100.0;
 
     static constexpr float MagTs=1.0/100;
 
@@ -84,7 +84,7 @@ struct ICM42688
         };
         struct AccelConfig {
             static constexpr uint8_t reg = 0x50;
-            static constexpr uint8_t value = (0b010 << 5) | 0b1111; //4g, odr = 500Hz
+            static constexpr uint8_t value = (0b010 << 5) | 0b1000; //4g, odr = 100Hz
         };
         struct PwrMgmt {
             static constexpr uint8_t reg = 0x4e;
