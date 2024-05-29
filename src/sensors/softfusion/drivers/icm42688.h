@@ -48,7 +48,7 @@ struct ICM42688
     static constexpr float MagTs=1.0/102.5;
 
     static constexpr float GyroSensitivity = 32.8f;
-    static constexpr float AccelSensitivity = 4096.0f;
+    static constexpr float AccelSensitivity = 8192.0f;
 
     I2CImpl i2c;
     SlimeVR::Logging::Logger &logger;
@@ -94,7 +94,7 @@ struct ICM42688
         };
         struct AccelConfig {
             static constexpr uint8_t reg = 0x50;
-            static constexpr uint8_t value = (0b001 << 5) | 0b1000; //8g, odr = 100Hz
+            static constexpr uint8_t value = (0b010 << 5) | 0b1000; //4g, odr = 100Hz
         };
         struct PwrMgmt {
             static constexpr uint8_t reg = 0x4e;
