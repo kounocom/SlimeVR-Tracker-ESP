@@ -305,7 +305,7 @@ struct BMI270
         return true;
     }
 
-    void deinitalize()
+    void deinitialize()
     {
         i2c.writeReg(Regs::PwrCtrl::reg, Regs::PwrCtrl::valueOff);
     }
