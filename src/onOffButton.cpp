@@ -87,7 +87,7 @@ void SlimeVR::OnOffButton::update() {
     }
 
     const auto &sensors = sensorManager.getSensors();
-    for (auto sensor : sensors) {
+    for (auto &sensor : sensors) {
         sensor->deinitialize();
     }
 
