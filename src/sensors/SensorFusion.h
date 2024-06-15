@@ -46,7 +46,7 @@ namespace SlimeVR
                 #ifndef VQF_NO_MOTION_BIAS_ESTIMATION
                 motionBiasEstEnabled = true;
                 biasSigmaMotion = 0.1175f;
-                biasVerticalForgettingFactor = 0;
+                biasVerticalForgettingFactor = 0.0001;
                 #endif
                 tauAcc = 2.0f;
                 restMinT = 2.0f;
