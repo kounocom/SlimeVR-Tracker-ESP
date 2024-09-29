@@ -169,6 +169,10 @@ struct LSM6DS3TRC {
 			processTemperatureSample(read_buffer[i + 9], AccTs);
 		}
 	}
+		void deinitialize() {
+        i2c.writeReg(Regs::Ctrl3C::reg, Regs::Ctrl3C::valueSwReset);
+	}
 };
 
 }  // namespace SlimeVR::Sensors::SoftFusion::Drivers
+
