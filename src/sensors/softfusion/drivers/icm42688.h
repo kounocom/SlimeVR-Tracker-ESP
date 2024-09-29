@@ -184,12 +184,12 @@ struct ICM42688 {
 			if (entry.part.accel[0] != -32768) {
 				processAccelSample(entry.part.accel, AccTs);
 			}
-				void deinitialize() {
-        i2c.writeReg(Regs::DeviceConfig::reg, Regs::DeviceConfig::valueSwReset);
-	}
 
 			processTemperatureSample(static_cast<int16_t>(entry.part.temp), TempTs);
 		}
+	}
+					void deinitialize() {
+        i2c.writeReg(Regs::DeviceConfig::reg, Regs::DeviceConfig::valueSwReset);
 	}
 };
 
