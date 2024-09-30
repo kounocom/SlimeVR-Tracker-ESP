@@ -65,8 +65,9 @@ struct MPU6050 {
 	static constexpr float GyroSensitivity = 32.8f;
 	static constexpr float AccelSensitivity = 8192.0f;
 
-	// Temperature stability constant - how many degrees of temperature for the bias to change by 0.01
-	// Though I don't know if it should be 0.1 or 0.01, this is a guess and seems to work better than 0.1
+	// Temperature stability constant - how many degrees of temperature for the bias to
+	// change by 0.01 Though I don't know if it should be 0.1 or 0.01, this is a guess
+	// and seems to work better than 0.1
 	static constexpr float TemperatureZROChange = 0.16f;
 
 	// VQF parameters
@@ -226,6 +227,13 @@ struct MPU6050 {
 			xyz[2] = MPU6050_FIFO_VALUE(sample, gyro_z);
 			processGyroSample(xyz, GyrTs);
 		}
+	}
+
+	void deinitialize() {
+		i2c.writeReg(
+			MPU6050_RA_PWR_MGMT_1,
+			0xc0
+		);  // Reset the device and put it into low power mode
 	}
 };
 
