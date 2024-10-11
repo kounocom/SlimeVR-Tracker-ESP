@@ -54,7 +54,7 @@ struct LSM6DS3 {
 
 	// Temperature stability constant - how many degrees of temperature for the bias to change by 0.01
 	// Though I don't know if it should be 0.1 or 0.01, this is a guess and seems to work better than 0.1
-	static constexpr float TemperatureZROChange = 0.2f;
+	static constexpr float TemperatureZROChange = 2.0f;
 
 	// VQF parameters
 	// biasSigmaInit and and restThGyr should be the sensor's typical gyro bias
@@ -65,7 +65,7 @@ struct LSM6DS3 {
 		.biasSigmaInit = 10.0f,
 		.biasClip = 20.0f,
 		.restThGyr = 10.0f,
-		.restThAcc = 0.784f,
+		.restThAcc = 0.392f,
 	};
 
 	I2CImpl i2c;
