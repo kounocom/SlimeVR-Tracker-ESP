@@ -173,6 +173,10 @@ struct ICM45686 {
 		return true;
 	}
 
+	void deinitialize() {
+		i2c.writeReg(Regs::DeviceConfig::reg, Regs::DeviceConfig::valueSwReset);
+	}
+
 	template <typename AccelCall, typename GyroCall, typename TemperatureCall>
 	void bulkRead(
 		AccelCall&& processAccelSample,
