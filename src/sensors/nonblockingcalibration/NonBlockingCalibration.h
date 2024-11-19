@@ -69,8 +69,11 @@ public:
 	}
 
 	void tick() {
-		if (fusion.getRestDetected()) ledManager.on();
-		else ledManager.off();
+		if (fusion.getRestDetected()) {
+			ledManager.on();
+		} else {
+			ledManager.off();
+		}
 		if (skippedAStep && !lastTickRest && fusion.getRestDetected()) {
 			computeNextCalibrationStep();
 			skippedAStep = false;
@@ -153,9 +156,9 @@ private:
 		} else if (calibrationConfig.gyroPointsCalibrated == 0) {
 			nextCalibrationStep = CalibrationStepEnum::GYRO_BIAS;
 			currentStep = &gyroBiasCalibrationStep;
-			// } else if (!accelBiasCalibrationStep.allAxesCalibrated()) {
-			// 	nextCalibrationStep = CalibrationStepEnum::ACCEL_BIAS;
-			// 	currentStep = &accelBiasCalibrationStep;
+		} else if (!accelBiasCalibrationStep.allAxesCalibrated()) {
+			nextCalibrationStep = CalibrationStepEnum::ACCEL_BIAS;
+			currentStep = &accelBiasCalibrationStep;
 		} else {
 			nextCalibrationStep = CalibrationStepEnum::GYRO_BIAS;
 			currentStep = &gyroBiasCalibrationStep;
@@ -183,10 +186,10 @@ private:
 				break;
 			case CalibrationStepEnum::GYRO_BIAS:
 				if (calibrationConfig.gyroPointsCalibrated == 1) {
-					// nextCalibrationStep = CalibrationStepEnum::ACCEL_BIAS;
-					// currentStep = &accelBiasCalibrationStep;
-					nextCalibrationStep = CalibrationStepEnum::GYRO_BIAS;
-					currentStep = &gyroBiasCalibrationStep;
+					nextCalibrationStep = CalibrationStepEnum::ACCEL_BIAS;
+					currentStep = &accelBiasCalibrationStep;
+					// nextCalibrationStep = CalibrationStepEnum::GYRO_BIAS;
+					// currentStep = &gyroBiasCalibrationStep;
 				}
 
 				if (save) {
