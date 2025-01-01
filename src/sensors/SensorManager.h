@@ -93,24 +93,18 @@ private:
 		swapI2C(sclPin, sdaPin);
 
 		if (I2CSCAN::hasDevOnBus(address)) {
-			m_Logger.trace("Sensor %d found at address 0x%02X", sensorID + 1, address);
+			m_Logger.info("Sensor %d found at address 0x%02X", sensorID + 1, address);
 		} else {
 			if (!optional) {
-				m_Logger.error(
-					"Mandatory sensor %d not found at address 0x%02X",
-					sensorID + 1,
-					address
-				);
-				sensor = std::make_unique<ErroneousSensor>(sensorID, ImuType::TypeID);
+				m_Logger.info("Mandatory sensor %d not found at address 0x%02X, attempting setup anyways...", sensorID + 1, address);
 			} else {
-				m_Logger.debug(
-					"Optional sensor %d not found at address 0x%02X",
-					sensorID + 1,
-					address
-				);
+				#ifdef SECOND_IMU
+				m_Logger.info("Optional sensor %d not found at address 0x%02X, attempting setup anyways...", sensorID + 1, address);
+				#else
 				sensor = std::make_unique<EmptySensor>(sensorID);
+				return sensor;
+				#endif
 			}
-			return sensor;
 		}
 
 		uint8_t intPin = extraParam;
