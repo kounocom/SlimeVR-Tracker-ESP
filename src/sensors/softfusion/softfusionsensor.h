@@ -416,7 +416,7 @@ public:
 
 	void motionSetup() override final {
 		if (!detected()) {
-			m_status = SensorStatus::SENSOR_ERROR;
+			m_status = SensorStatus::SENSOR_OFFLINE;
 			return;
 		}
 
