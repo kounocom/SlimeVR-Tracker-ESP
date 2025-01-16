@@ -66,8 +66,8 @@ struct BMI270 {
 		.motionBiasEstEnabled = true,
 		.biasSigmaInit = 0.5f,
 		.biasClip = 1.0f,
-		.restThGyr = 0.5f,
-		.restThAcc = 0.196f,
+		.restThGyr = 0.6f,
+		.restThAcc = 0.296f,
 	};
 
 	struct MotionlessCalibrationData {
