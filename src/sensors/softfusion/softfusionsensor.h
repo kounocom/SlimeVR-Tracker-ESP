@@ -397,12 +397,7 @@ public:
 
 		// send new fusion values when time is up
 		now = micros();
-		float maxSendRateHz = 0;
-		if (sensorManager.getActiveSensorCount() > 1) {
-			maxSendRateHz = 90.0f;
-		} else {
-			maxSendRateHz = 120.0f;
-		}
+		float maxSendRateHz = 90.0f;
 		uint32_t sendInterval = 1.0f / maxSendRateHz * 1e6;
 		elapsed = now - m_lastRotationPacketSent;
 		if (elapsed >= sendInterval) {
