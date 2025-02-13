@@ -135,7 +135,7 @@ struct VQFParams
      *
      * Default value: 0.0001
      */
-    vqf_real_t biasVerticalForgettingFactor = 0.0001;
+    vqf_real_t biasVerticalForgettingFactor = 0;
 #endif
     /**
      * @brief Standard deviation of the converged bias estimation uncertainty during rest (in degrees per second).
