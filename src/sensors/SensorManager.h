@@ -98,25 +98,23 @@ private:
 		swapI2C(sclPin, sdaPin);
 
 		if (I2CSCAN::hasDevOnBus(i2cAddress)) {
-			m_Logger
-				.trace("Sensor %d found at address 0x%02X", sensorID + 1, i2cAddress);
+			m_Logger.debug("Sensor %d found at address 0x%02X on first scan attempt", sensorID + 1, i2cAddress);
 		} else {
 			if (!optional) {
-				m_Logger.error(
-					"Mandatory sensor %d not found at address 0x%02X",
-					sensorID + 1,
-					i2cAddress
-				);
-				sensor = std::make_unique<ErroneousSensor>(sensorID, ImuType::TypeID);
+				m_Logger.error("Mandatory sensor %d not found at address 0x%02X on first scan attempt, retrying...", sensorID + 1, i2cAddress);
+				if (I2CSCAN::hasDevOnBus(i2cAddress)) {
+					m_Logger.debug("Mandatory sensor %d found at address 0x%02X on second scan attempt", sensorID + 1, i2cAddress);
+				} else {
+					m_Logger.error("Mandatory sensor %d not found at address 0x%02X on second scan attempt, attempting direct setup...", sensorID + 1, i2cAddress);
+				}
 			} else {
-				m_Logger.debug(
-					"Optional sensor %d not found at address 0x%02X",
-					sensorID + 1,
-					i2cAddress
-				);
-				sensor = std::make_unique<EmptySensor>(sensorID);
+				m_Logger.error("Optional sensor %d not found at address 0x%02X on first scan attempt, retrying...", sensorID + 1, i2cAddress);
+				if (I2CSCAN::hasDevOnBus(i2cAddress)) {
+					m_Logger.debug("Optional sensor %d found at address 0x%02X on second scan attempt", sensorID + 1, i2cAddress);
+				} else {
+					m_Logger.error("Optional sensor %d not found at address 0x%02X on second scan attempt, attempting direct setup...", sensorID + 1, i2cAddress);
+				}
 			}
-			return sensor;
 		}
 
 		uint8_t intPin = extraParam;
