@@ -40,7 +40,7 @@ class SoftFusionSensor : public Sensor {
 		typename std::conditional<Uses32BitSensorData, int32_t, int16_t>::type;
 	using RawVectorT = std::array<RawSensorT, 3>;
 
-	static constexpr auto UpsideDownCalibrationInit = true;
+	static constexpr auto UpsideDownCalibrationInit = false;
 	static constexpr auto GyroCalibDelaySeconds = 5;
 	static constexpr auto GyroCalibSeconds = 5;
 	static constexpr auto SampleRateCalibDelaySeconds = 1;

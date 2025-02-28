@@ -91,7 +91,7 @@ void Configuration::setup() {
 		save();
 	}
 
-	loadSensors();
+	// loadSensors();
 
 	m_Loaded = true;
 
