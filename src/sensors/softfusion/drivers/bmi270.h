@@ -65,9 +65,9 @@ struct BMI270 {
 	static constexpr VQFParams SensorVQFParams{
 		.motionBiasEstEnabled = true,
 		.biasSigmaInit = 0.5f,
-		.biasClip = 1.0f,
+		.biasClip = 2.0f,
 		.restThGyr = 0.5f,
-		.restThAcc = 0.196f,
+		.restThAcc = 0.2f,
 	};
 
 	struct MotionlessCalibrationData {
