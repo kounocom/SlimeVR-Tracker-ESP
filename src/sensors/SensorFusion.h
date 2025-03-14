@@ -41,13 +41,18 @@ namespace Sensors {
 struct SensorVQFParams : VQFParams {
 	SensorVQFParams()
 		: VQFParams() {
-#ifndef VQF_NO_MOTION_BIAS_ESTIMATION
+		tauAcc = 2.75f;
 		motionBiasEstEnabled = true;
-#endif
-		tauAcc = 2.0f;
-		restMinT = 2.0f;
-		restThGyr = 0.6f;  // 400 norm
-		restThAcc = 0.06f;  // 100 norm
+		restBiasEstEnabled = true;
+		biasSigmaInit = 0.015f;
+		biasForgettingTime = 100.0f;
+		biasSigmaMotion = 0.03f;
+		biasVerticalForgettingFactor = 0.000003f;
+		biasSigmaRest = 0.01f;
+		restMinT = 1.5f;
+		restFilterTau = 0.5f;
+		restThGyr = 0.5f;
+		restThAcc = 0.1f;
 	}
 };
 #endif
