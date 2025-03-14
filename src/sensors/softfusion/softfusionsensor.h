@@ -255,19 +255,20 @@ public:
 				== MotionlessCalibDataSize())) {
 			m_calibration = sensorCalibration.data.sfusion;
 			recalcFusion();
-		} else if (sensorCalibration.type == SlimeVR::Configuration::SensorConfigType::NONE) {
-			m_Logger.warn(
-				"No calibration data found for sensor %d, ignoring...",
-				sensorId
-			);
-			m_Logger.info("Calibration is advised");
-		} else {
-			m_Logger.warn(
-				"Incompatible calibration data found for sensor %d, ignoring...",
-				sensorId
-			);
-			m_Logger.info("Please recalibrate");
-		}
+		} 
+		// else if (sensorCalibration.type == SlimeVR::Configuration::SensorConfigType::NONE) {
+		// 	m_Logger.warn(
+		// 		"No calibration data found for sensor %d, ignoring...",
+		// 		sensorId
+		// 	);
+		// 	m_Logger.info("Calibration is advised");
+		// } else {
+		// 	m_Logger.warn(
+		// 		"Incompatible calibration data found for sensor %d, ignoring...",
+		// 		sensorId
+		// 	);
+		// 	m_Logger.info("Please recalibrate");
+		// }
 
 		bool initResult = false;
 
