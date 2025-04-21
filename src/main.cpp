@@ -33,6 +33,7 @@
 #include "ota.h"
 #include "serial/serialcommands.h"
 #include "status/TPSCounter.h"
+#include <Adafruit_NeoPixel.h>
 
 Timer<> globalTimer;
 SlimeVR::Logging::Logger logger("SlimeVR");
@@ -55,6 +56,7 @@ unsigned long lastStatePrint = 0;
 bool secondImuActive = false;
 BatteryMonitor battery;
 TPSCounter tpsCounter;
+Adafruit_NeoPixel led(1, 5, NEO_GRB + NEO_KHZ800);
 
 void setup() {
 	Serial.begin(serialBaudRate);
@@ -65,6 +67,10 @@ void setup() {
 	Serial.println();
 
 	logger.info("SlimeVR v" FIRMWARE_VERSION " starting up...");
+
+	led.begin();
+	led.setPixelColor(0, led.Color(255, 255, 255));
+	led.show();
 
 	statusManager.setStatus(SlimeVR::Status::LOADING, true);
 
