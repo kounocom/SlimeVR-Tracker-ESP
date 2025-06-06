@@ -50,6 +50,8 @@ bool secondImuActive = false;
 BatteryMonitor battery;
 
 void setup() {
+	static_assert(false);
+
 	Serial.begin(serialBaudRate);
 	globalTimer = timer_create_default();
 
