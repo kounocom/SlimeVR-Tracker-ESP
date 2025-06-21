@@ -122,4 +122,7 @@
 #define USE_OTA_TIMEOUT false
 #endif
 
+#define ON_OFF_BUTTON_PIN 1
+#define BUTTON_IMU_ENABLE_PIN 10
+
 #endif  // SLIMEVR_DEBUG_H_
