@@ -81,7 +81,6 @@ void OnOffButton::tick() {
 
 	if (!wasReleasedInitially && !getButton()) {
 		return;
-
 	}
 	wasReleasedInitially = true;
 
@@ -149,6 +148,7 @@ void OnOffButton::goToSleep() {
 #if ESP8266
 	ESP.deepSleep(0);
 #elif ESP32
+	printf("Going to sleep\n");
 	esp_deep_sleep_start();
 #endif
 }
