@@ -142,6 +142,8 @@ void OnOffButton::goToSleep() {
 
 	ledManager.pattern(100, 100, 3);
 
+	printf("Going to sleep\n");
+
 	while (buttonPressed && getButton())
 		;
 
