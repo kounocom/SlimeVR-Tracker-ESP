@@ -544,6 +544,14 @@ void Connection::searchForServer() {
 			break;
 		}
 
+		if (packetSize > sizeof(m_Packet)) {
+			// ESP32 seemingly gets stuck when the packet is bigger than the buffer it has
+			// This only happens with packets not meant for it being incidentally received
+			// For compatibility we ignore these and flush the UDP buffer
+			m_UDP.flush();
+			continue;
+		}
+
 		// receive incoming UDP packets
 		[[maybe_unused]] int len = m_UDP.read(m_Packet, sizeof(m_Packet));
 
