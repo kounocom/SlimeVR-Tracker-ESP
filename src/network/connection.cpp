@@ -549,7 +549,9 @@ void Connection::searchForServer() {
 			// ESP32 seemingly gets stuck when the packet is bigger than the buffer it has
 			// This only happens with packets not meant for it being incidentally received
 			// For compatibility we ignore these and flush the UDP buffer
-			m_UDP.flush();
+			while (packetSize > 0) {
+				packetSize -= m_UDP.read(m_Packet, std::min(sizeof(m_Packet), static_cast<size_t>(packetSize)));
+			}
 			continue;
 		}
 		#endif
@@ -679,7 +681,9 @@ void Connection::update() {
 		// ESP32 seemingly gets stuck when the packet is bigger than the buffer it has
 		// This only happens with packets not meant for it being incidentally received
 		// For compatibility we ignore these and flush the UDP buffer
-		m_UDP.flush();
+		while (packetSize > 0) {
+			packetSize -= m_UDP.read(m_Packet, std::min(sizeof(m_Packet), static_cast<size_t>(packetSize)));
+		}
 		return;
 	}
 	#endif
